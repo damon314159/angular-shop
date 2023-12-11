@@ -1,1 +1,33 @@
-<p>welcome works!</p>
+<div class="mat-app-background">
+  <mat-grid-list [cols]="cols" rowHeight="fit">
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows">
+      <ng-container *ngTemplateOutlet="getTileTemplate(tile)"></ng-container>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<ng-template #tileOne
+  ><div class="mat-elevation-z4 welcome-card" [style.background]="'lightblue'">
+    <h2>Welcome to Our Store!</h2>
+    <p>Thank you for choosing us. Explore our amazing products and enjoy a seamless shopping experience.</p>
+  </div></ng-template
+>
+
+<ng-template #tileTwo>
+  <div class="mat-elevation-z4 welcome-card" [style.background]="'lightgreen'">
+    <img class="placeholder" height="300px" width="300px" />
+  </div>
+</ng-template>
+
+<ng-template #tileThree>
+  <div class="mat-elevation-z4 welcome-card" [style.background]="'#DDBDF1'">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac arcu eu ex gravida fringilla ut non est. Vivamus
+      euismod velit a mauris varius, sit amet euismod nunc tempus.
+    </p>
+    <p>
+      Feel free to browse through our categories and discover exclusive deals. If you have any questions or need
+      assistance, our friendly staff is here to help.
+    </p>
+  </div>
+</ng-template>

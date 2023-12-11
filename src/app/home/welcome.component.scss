@@ -1,0 +1,13 @@
+:host,
+.mat-app-background,
+mat-grid-list {
+  height: 100%;
+}
+.welcome-card {
+  padding: 16px;
+  margin: 16px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
