@@ -5,25 +5,25 @@
     </button>
     <nav>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item aria-label="Home navigation button">
+        <button mat-menu-item (click)="onHomeNav()" aria-label="Home navigation button">
           <mat-icon>home</mat-icon>
           <span>Home</span>
         </button>
-        <button mat-menu-item aria-label="Shop navigation button">
+        <button mat-menu-item (click)="onShopNav()" aria-label="Shop navigation button">
           <mat-icon>storefront</mat-icon>
           <span>Shop Now</span>
         </button>
-        <button mat-menu-item aria-label="Checkout navigation button">
+        <button mat-menu-item (click)="onCartNav()" aria-label="Checkout navigation button">
           <mat-icon>local_mall</mat-icon>
           <span>Checkout</span>
         </button>
       </mat-menu>
     </nav>
-    <button mat-button aria-label="WYWM Store logo and home button">
+    <button mat-button (click)="onHomeNav()" aria-label="WYWM Store logo and home button">
       <h1>WYWM Store</h1>
     </button>
     <span class="header-spacer"></span>
-    <button mat-icon-button class="icon" aria-label="Share button with share icon">
+    <button mat-icon-button (click)="onCartNav()" aria-label="Share button with share icon">
       <mat-icon>local_mall</mat-icon>
     </button>
   </mat-toolbar>

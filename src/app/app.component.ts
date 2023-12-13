@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { RouterOutlet } from '@angular/router'
+import { RouterOutlet, Router } from '@angular/router'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -22,4 +22,18 @@ import { WelcomeComponent } from './home/welcome.component'
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private readonly router: Router) {}
+
+  async onHomeNav(): Promise<void> {
+    await this.router.navigate(['/welcome'])
+  }
+
+  async onShopNav(): Promise<void> {
+    await this.router.navigate(['/catalogue'])
+  }
+
+  async onCartNav(): Promise<void> {
+    await this.router.navigate(['/shopping-cart'])
+  }
+}
