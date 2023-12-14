@@ -1,1 +1,63 @@
-<p>checkout works!</p>
+<mat-card class="mat-app-background component-main mat-elevation-z8">
+  <table mat-table [dataSource]="transactions">
+    <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef>Item</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.name }}</td>
+      <td mat-footer-cell *matFooterCellDef>Subtotal</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell class="quantity-panel" *matCellDef="let transaction">
+        <span>{{ transaction.quantity }}</span>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="plusQuantity(transaction.id)"><mat-icon>add</mat-icon></button>
+          <button mat-button color="warn" (click)="minusQuantity(transaction.id)"><mat-icon>remove</mat-icon></button>
+        </mat-action-row>
+        <div class="spacer"></div>
+      </td>
+      <td mat-footer-cell *matFooterCellDef>{{ getTotalQuantity() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.price | currency }}</td>
+      <td mat-footer-cell *matFooterCellDef>{{ getTotalPrice() | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tax">
+      <th mat-footer-cell *matFooterCellDef>Tax</th>
+    </ng-container>
+
+    <ng-container matColumnDef="shipping">
+      <th mat-footer-cell *matFooterCellDef>Shipping</th>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-footer-cell *matFooterCellDef>Total</th>
+    </ng-container>
+
+    <ng-container matColumnDef="taxValue">
+      <td mat-footer-cell *matFooterCellDef>{{ getTax() | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="shippingValue">
+      <td mat-footer-cell *matFooterCellDef>{{ getShipping() | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalValue">
+      <td mat-footer-cell *matFooterCellDef>{{ getTotal() | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="spacer">
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    <tr mat-footer-row *matFooterRowDef="['tax', 'spacer', 'taxValue']"></tr>
+    <tr mat-footer-row *matFooterRowDef="['shipping', 'spacer', 'shippingValue']"></tr>
+    <tr mat-footer-row *matFooterRowDef="['total', 'spacer', 'totalValue']"></tr>
+  </table>
+</mat-card>

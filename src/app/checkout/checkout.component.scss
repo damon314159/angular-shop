@@ -1,0 +1,34 @@
+mat-card {
+  width: 90%;
+  margin: 1rem auto;
+}
+
+tr.mat-mdc-footer-row:last-child {
+  td,
+  th {
+    font-weight: bold;
+  }
+}
+
+tr.mat-mdc-footer-row th {
+  font-weight: normal;
+}
+
+.quantity-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+mat-action-row {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  button {
+    width: min-content;
+    padding: 0;
+  }
+  mat-icon {
+    margin: 0;
+  }
+}
