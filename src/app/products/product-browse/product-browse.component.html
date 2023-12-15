@@ -22,7 +22,7 @@
       <div class="info-container">
         <div class="title-container">
           <mat-card-title>{{ product.name }}</mat-card-title>
-          <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ product.category | titlecase }}</mat-card-subtitle>
         </div>
         <mat-card-actions>
           <p>Price: {{ product.price | currency : 'USD' : 'symbol' : '1.2-2' }}</p>
