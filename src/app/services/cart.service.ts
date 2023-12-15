@@ -1,15 +1,6 @@
 import { Injectable } from '@angular/core'
-
-export interface Item {
-  id: number
-  name: string
-  image: string
-  price: number
-}
-
-export interface Transaction extends Item {
-  quantity: number
-}
+import { type Transaction } from '../interfaces/transaction'
+import { type Item } from '../interfaces/item'
 
 @Injectable({
   providedIn: 'root'

@@ -5,9 +5,10 @@ import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon'
-import { CartService, type Transaction } from '../services/cart.service'
+import { CartService } from '../services/cart.service'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { Router } from '@angular/router'
+import { type Transaction } from '../interfaces/transaction'
 
 @Component({
   selector: 'app-checkout',

@@ -7,7 +7,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { FormsModule } from '@angular/forms'
-import { CartService, Item } from '../../services/cart.service'
+import { CartService } from '../../services/cart.service'
+import { type Item } from '../../interfaces/item'
 
 @Component({
   standalone: true,
