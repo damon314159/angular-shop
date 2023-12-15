@@ -11,8 +11,8 @@
       <td mat-cell class="quantity-panel" *matCellDef="let transaction">
         <span>{{ transaction.quantity }}</span>
         <mat-action-row>
-          <button mat-button color="primary" (click)="plusQuantity(transaction.id)"><mat-icon>add</mat-icon></button>
-          <button mat-button color="warn" (click)="minusQuantity(transaction.id)"><mat-icon>remove</mat-icon></button>
+          <button mat-button color="primary" (click)="plusQuantity(transaction)"><mat-icon>add</mat-icon></button>
+          <button mat-button color="warn" (click)="minusQuantity(transaction)"><mat-icon>remove</mat-icon></button>
         </mat-action-row>
         <div class="spacer"></div>
       </td>

@@ -57,15 +57,15 @@ export class CheckoutComponent {
     return this.getTotalPrice() + this.getTax() + this.getShipping()
   }
 
-  plusQuantity(id: number): void {
-    const item = this.transactions.find((t) => t.id === id)!
+  plusQuantity(transaction: Transaction): void {
+    const item = this.transactions.find((t) => t === transaction)!
     this.cartService.addToCart(item)
     this.transactions = this.cartService.getCartItems()
     this.table.renderRows()
   }
 
-  minusQuantity(id: number): void {
-    const item = this.transactions.find((t) => t.id === id)!
+  minusQuantity(transaction: Transaction): void {
+    const item = this.transactions.find((t) => t === transaction)!
     this.cartService.removeFromCart(item)
     this.transactions = this.cartService.getCartItems()
     this.table.renderRows()
