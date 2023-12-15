@@ -16,13 +16,13 @@
     <mat-card-content class="product-content">
       <div class="thumbnail-container">
         <div mat-card-avatar class="product-image">
-          <img mat-card-image src="#" alt="{{ product.name }}" />
+          <img mat-card-image src="{{ product.image }}" alt="{{ product.name }}" />
         </div>
       </div>
       <div class="info-container">
         <div class="title-container">
           <mat-card-title>{{ product.name }}</mat-card-title>
-          <mat-card-subtitle>{{ category }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
         </div>
         <mat-card-actions>
           <p>Price: {{ product.price | currency : 'USD' : 'symbol' : '1.2-2' }}</p>

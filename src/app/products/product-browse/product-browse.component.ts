@@ -8,7 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { FormsModule } from '@angular/forms'
 import { CartService } from '../../services/cart.service'
-import { type Item } from '../../interfaces/item'
+import { ProductDataService } from '../../services/product-data.service'
+import { type CategorisedItem } from '../../interfaces/categorised-item'
+import { type Subscription } from 'rxjs'
 
 @Component({
   standalone: true,
@@ -27,7 +29,12 @@ import { type Item } from '../../interfaces/item'
   styleUrl: './product-browse.component.scss'
 })
 export class ProductBrowseComponent {
-  constructor(private readonly cartService: CartService) {}
+  constructor(private readonly cartService: CartService, private readonly productDataService: ProductDataService) {}
+
+  sub!: Subscription
+  products!: CategorisedItem[]
+  relevantProducts!: CategorisedItem[]
+  errorMessage!: string
 
   #filter = ''
   get filter(): string {
@@ -39,43 +46,22 @@ export class ProductBrowseComponent {
     this.relevantProducts = this.products.filter((product) => product.name.toLowerCase().includes(arg.toLowerCase()))
   }
 
-  category = 'shirts'
-  products = [
-    {
-      id: 1,
-      name: 'Be Curious Shirt',
-      image: 'images/beCuriousShirt.png',
-      price: 50
-    },
-    {
-      id: 2,
-      name: 'Creator Shirt',
-      image: 'images/creatorShirt.png',
-      price: 35
-    },
-    {
-      id: 3,
-      name: 'Doer Shirt',
-      image: 'images/doerShirt.png',
-      price: 35
-    },
-    {
-      id: 4,
-      name: 'Translator Shirt',
-      image: 'images/translatorShirt.png',
-      price: 35
-    },
-    {
-      id: 5,
-      name: 'Pro Shirt',
-      image: 'images/proShirt.png',
-      price: 60
-    }
-  ]
+  ngOnInit(): void {
+    this.sub = this.productDataService.getProducts().subscribe({
+      next: (products) => {
+        this.products = products
+        this.relevantProducts = this.products
+        console.log(products)
+      },
+      error: (err) => (this.errorMessage = err)
+    })
+  }
 
-  relevantProducts = this.products
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
+  }
 
-  onAddToCart(product: Item): void {
+  onAddToCart(product: CategorisedItem): void {
     this.cartService.addToCart(product)
   }
 }

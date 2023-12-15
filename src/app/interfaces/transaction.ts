@@ -1,5 +1,5 @@
-import { type Item } from './item'
+import { type CategorisedItem } from './categorised-item'
 
-export interface Transaction extends Item {
+export interface Transaction extends CategorisedItem {
   quantity: number
 }

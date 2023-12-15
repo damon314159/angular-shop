@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { type Transaction } from '../interfaces/transaction'
-import { type Item } from '../interfaces/item'
+import { type CategorisedItem } from '../interfaces/categorised-item'
 
 @Injectable({
   providedIn: 'root'
@@ -8,25 +8,25 @@ import { type Item } from '../interfaces/item'
 export class CartService {
   cartItems: Transaction[] = []
 
-  findById(id: number): Transaction | undefined {
-    return this.cartItems.find((t) => t.id === id)
+  findByCategoryId(category: string, id: number): Transaction | undefined {
+    return this.cartItems.find((t) => t.category === category && t.id === id)
   }
 
   getCartItems(): Transaction[] {
     return this.cartItems
   }
 
-  addToCart(item: Item): void {
-    if (this.findById(item.id) !== undefined) {
-      this.findById(item.id)!.quantity += 1
+  addToCart(item: CategorisedItem): void {
+    if (this.findByCategoryId(item.category, item.id) !== undefined) {
+      this.findByCategoryId(item.category, item.id)!.quantity += 1
       return
     }
     const transaction = Object.assign(item, { quantity: 1 })
     this.cartItems.push(transaction)
   }
 
-  removeFromCart(item: Item): void {
-    const transaction = this.findById(item.id)
+  removeFromCart(item: CategorisedItem): void {
+    const transaction = this.findByCategoryId(item.category, item.id)
     if (transaction !== undefined) {
       transaction.quantity -= 1
       if (transaction.quantity === 0) {
