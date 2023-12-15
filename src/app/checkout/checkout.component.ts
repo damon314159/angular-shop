@@ -6,16 +6,26 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon'
 import { CartService, type Transaction } from '../services/cart.service'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [MatTableModule, CurrencyPipe, MatCardModule, MatButtonModule, MatExpansionModule, MatIconModule],
+  imports: [
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    CurrencyPipe,
+    MatCardModule,
+    MatExpansionModule
+  ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
-  constructor(private readonly cartService: CartService) {}
+  constructor(private readonly cartService: CartService, private readonly router: Router) {}
 
   displayedColumns: string[] = ['item', 'quantity', 'price']
   @ViewChild(MatTable) table!: MatTable<any>
@@ -58,5 +68,19 @@ export class CheckoutComponent {
     this.cartService.removeFromCart(item)
     this.transactions = this.cartService.getCartItems()
     this.table.renderRows()
+  }
+
+  clearCart(): void {
+    this.cartService.clearCart()
+    this.transactions = this.cartService.getCartItems()
+    this.table.renderRows()
+  }
+
+  async onBackNav(): Promise<void> {
+    await this.router.navigate(['/catalogue'])
+  }
+
+  checkout(): void {
+    console.log('checking out')
   }
 }

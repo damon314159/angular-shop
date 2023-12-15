@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { FormsModule } from '@angular/forms'
+import { CartService, Item } from '../../services/cart.service'
 
 @Component({
   standalone: true,
@@ -25,6 +26,8 @@ import { FormsModule } from '@angular/forms'
   styleUrl: './product-browse.component.scss'
 })
 export class ProductBrowseComponent {
+  constructor(private readonly cartService: CartService) {}
+
   #filter = ''
   get filter(): string {
     return this.#filter
@@ -70,4 +73,8 @@ export class ProductBrowseComponent {
   ]
 
   relevantProducts = this.products
+
+  onAddToCart(product: Item): void {
+    this.cartService.addToCart(product)
+  }
 }

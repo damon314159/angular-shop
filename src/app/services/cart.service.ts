@@ -15,43 +15,7 @@ export interface Transaction extends Item {
   providedIn: 'root'
 })
 export class CartService {
-  cartItems: Transaction[] = [
-    {
-      id: 1,
-      name: 'Be Curious Shirt',
-      image: 'images/beCuriousShirt.png',
-      price: 50,
-      quantity: 1
-    },
-    {
-      id: 2,
-      name: 'Creator Shirt',
-      image: 'images/creatorShirt.png',
-      price: 35,
-      quantity: 1
-    },
-    {
-      id: 3,
-      name: 'Doer Shirt',
-      image: 'images/doerShirt.png',
-      price: 35,
-      quantity: 1
-    },
-    {
-      id: 4,
-      name: 'Translator Shirt',
-      image: 'images/translatorShirt.png',
-      price: 35,
-      quantity: 1
-    },
-    {
-      id: 5,
-      name: 'Pro Shirt',
-      image: 'images/proShirt.png',
-      price: 60,
-      quantity: 1
-    }
-  ]
+  cartItems: Transaction[] = []
 
   findById(id: number): Transaction | undefined {
     return this.cartItems.find((t) => t.id === id)

@@ -61,3 +61,22 @@
     <tr mat-footer-row *matFooterRowDef="['total', 'spacer', 'totalValue']"></tr>
   </table>
 </mat-card>
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="onBackNav()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      <span>Back</span>
+    </button>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="clearCart()">
+      <mat-icon>clear</mat-icon>
+      <span>Clear</span>
+    </button>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="checkout()">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Checkout</span>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>

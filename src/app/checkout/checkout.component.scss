@@ -32,3 +32,17 @@ mat-action-row {
     margin: 0;
   }
 }
+
+mat-toolbar-row {
+  button {
+    min-width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
