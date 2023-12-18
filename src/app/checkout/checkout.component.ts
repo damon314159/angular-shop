@@ -43,6 +43,9 @@ export class CheckoutComponent {
 
   ngOnInit(): void {
     this.transactions = this.cartService.getCartItems()
+    this.cartService.tableRefresh.subscribe(() => {
+      this.table.renderRows()
+    })
   }
 
   getTotalPrice(): number {

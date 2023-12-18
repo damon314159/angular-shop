@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { type Transaction } from '../interfaces/transaction'
 import { type CategorisedItem } from '../interfaces/categorised-item'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { Subject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,12 @@ export class CartService {
   constructor(private readonly snackBar: MatSnackBar) {}
 
   cartItems: Transaction[] = []
+
+  private readonly tableRefreshSubject = new Subject<void>()
+  tableRefresh = this.tableRefreshSubject.asObservable()
+  triggerTableRefresh(): void {
+    this.tableRefreshSubject.next()
+  }
 
   findByCategoryId(category: string, id: number): Transaction | undefined {
     return this.cartItems.find((t) => t.category === category && t.id === id)

@@ -1,5 +1,17 @@
 :host {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  min-width: 75vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60vw;
+
+  mat-form-field {
+    width: 90%;
+  }
 }
