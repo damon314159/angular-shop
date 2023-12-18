@@ -51,7 +51,6 @@ export class ProductBrowseComponent {
       next: (products) => {
         this.products = products
         this.relevantProducts = this.products
-        console.log(products)
       },
       error: (err) => (this.errorMessage = err)
     })
