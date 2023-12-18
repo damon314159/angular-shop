@@ -52,7 +52,7 @@ export class CheckoutComponent {
   }
 
   getShipping(): number {
-    return 20
+    return this.getTotalQuantity() > 0 ? 20 : 0
   }
 
   getTotal(): number {
