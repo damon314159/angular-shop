@@ -9,6 +9,8 @@ import { CartService } from '../services/cart.service'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { Router } from '@angular/router'
 import { type Transaction } from '../interfaces/transaction'
+import { MatDialog } from '@angular/material/dialog'
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component'
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +28,7 @@ import { type Transaction } from '../interfaces/transaction'
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
-  constructor(private readonly cartService: CartService, private readonly router: Router) {}
+  constructor(private readonly cartService: CartService, private readonly router: Router, public dialogue: MatDialog) {}
 
   displayedColumns: string[] = ['item', 'quantity', 'price']
   @ViewChild(MatTable) table!: MatTable<any>
@@ -82,6 +84,22 @@ export class CheckoutComponent {
   }
 
   checkout(): void {
-    console.log('checking out')
+    this.dialogue.open(CheckoutFormComponent, {
+      data: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        address1: '',
+        address2: '',
+        city: '',
+        county: '',
+        postcode: '',
+        country: '',
+        cardNumber: '',
+        expiry: '',
+        cvc: ''
+      }
+    })
   }
 }
