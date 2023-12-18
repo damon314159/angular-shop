@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
 import { type Transaction } from '../interfaces/transaction'
 import { MatDialog } from '@angular/material/dialog'
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'app-checkout',
@@ -28,7 +29,12 @@ import { CheckoutFormComponent } from './checkout-form/checkout-form.component'
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
-  constructor(private readonly cartService: CartService, private readonly router: Router, public dialogue: MatDialog) {}
+  constructor(
+    private readonly cartService: CartService,
+    private readonly router: Router,
+    public dialogue: MatDialog,
+    private readonly snackBar: MatSnackBar
+  ) {}
 
   displayedColumns: string[] = ['item', 'quantity', 'price']
   @ViewChild(MatTable) table!: MatTable<any>
@@ -84,22 +90,26 @@ export class CheckoutComponent {
   }
 
   checkout(): void {
-    this.dialogue.open(CheckoutFormComponent, {
-      data: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        address1: '',
-        address2: '',
-        city: '',
-        county: '',
-        postcode: '',
-        country: '',
-        cardNumber: '',
-        expiry: '',
-        cvc: ''
-      }
-    })
+    if (this.getTotal() > 0) {
+      this.dialogue.open(CheckoutFormComponent, {
+        data: {
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          address1: '',
+          address2: '',
+          city: '',
+          county: '',
+          postcode: '',
+          country: '',
+          cardNumber: '',
+          expiry: '',
+          cvc: ''
+        }
+      })
+      return
+    }
+    this.snackBar.open('Add items to cart first!', 'Close')
   }
 }

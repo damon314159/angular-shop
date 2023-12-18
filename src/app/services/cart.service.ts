@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core'
 import { type Transaction } from '../interfaces/transaction'
 import { type CategorisedItem } from '../interfaces/categorised-item'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  constructor(private readonly snackBar: MatSnackBar) {}
+
   cartItems: Transaction[] = []
 
   findByCategoryId(category: string, id: number): Transaction | undefined {
@@ -17,6 +20,7 @@ export class CartService {
   }
 
   addToCart(item: CategorisedItem): void {
+    this.snackBar.open('Added to cart!', 'Close')
     if (this.findByCategoryId(item.category, item.id) !== undefined) {
       this.findByCategoryId(item.category, item.id)!.quantity += 1
       return
@@ -26,6 +30,7 @@ export class CartService {
   }
 
   removeFromCart(item: CategorisedItem): void {
+    this.snackBar.open('Removed from cart', 'Close')
     const transaction = this.findByCategoryId(item.category, item.id)
     if (transaction !== undefined) {
       transaction.quantity -= 1
@@ -37,6 +42,7 @@ export class CartService {
   }
 
   clearCart(): void {
+    this.snackBar.open('Cart cleared', 'Close')
     while (this.cartItems.length > 0) {
       this.cartItems.pop()
     }
