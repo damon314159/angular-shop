@@ -54,4 +54,34 @@ export class CartService {
       this.cartItems.pop()
     }
   }
+
+  getTotalPrice(): number {
+    return this.cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)
+  }
+
+  getTotalQuantity(): number {
+    return this.cartItems.map((item) => item.quantity).reduce((acc, value) => acc + value, 0)
+  }
+
+  getTax(): number {
+    return this.getTotalPrice() * 0.1
+  }
+
+  getShipping(): number {
+    return this.getTotalQuantity() > 0 ? 20 : 0
+  }
+
+  getTotal(): number {
+    return this.getTotalPrice() + this.getTax() + this.getShipping()
+  }
+
+  getCosts(): Record<string, number> {
+    return {
+      totalPrice: this.getTotalPrice(),
+      totalQuantity: this.getTotalQuantity(),
+      tax: this.getTax(),
+      shipping: this.getShipping(),
+      total: this.getTotal()
+    }
+  }
 }

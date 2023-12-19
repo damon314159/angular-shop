@@ -49,23 +49,23 @@ export class CheckoutComponent {
   }
 
   getTotalPrice(): number {
-    return this.transactions.reduce((acc, t) => acc + t.quantity * t.price, 0)
+    return this.cartService.getTotalPrice()
   }
 
   getTotalQuantity(): number {
-    return this.transactions.map((t) => t.quantity).reduce((acc, value) => acc + value, 0)
+    return this.cartService.getTotalQuantity()
   }
 
   getTax(): number {
-    return this.getTotalPrice() * 0.1
+    return this.cartService.getTax()
   }
 
   getShipping(): number {
-    return this.getTotalQuantity() > 0 ? 20 : 0
+    return this.cartService.getShipping()
   }
 
   getTotal(): number {
-    return this.getTotalPrice() + this.getTax() + this.getShipping()
+    return this.cartService.getTotal()
   }
 
   plusQuantity(transaction: Transaction): void {

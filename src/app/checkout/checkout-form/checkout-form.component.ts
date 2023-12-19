@@ -24,6 +24,7 @@ import {
   PostcodeValidatorDirective
 } from './form-validators.directive'
 import { CartService } from '../../services/cart.service'
+import { Transaction } from '../../interfaces/transaction'
 
 @Component({
   selector: 'app-checkout-form',
@@ -64,7 +65,7 @@ export class CheckoutFormComponent {
     this.dialogueRef.close()
   }
 
-  async submitData(data: DialogueData): Promise<void> {
+  async submitData(data: DialogueData, items: Transaction[], costs: Record<string, number>): Promise<void> {
     const firebaseConfig = {
       apiKey: 'AIzaSyDHG2yKPwXc9q7DKGPOBsisSQ5N0GKDrU4',
       authDomain: 'wywm-shop.firebaseapp.com',
@@ -78,15 +79,18 @@ export class CheckoutFormComponent {
     const db = getDatabase(app)
     const dataRef = ref(db, 'orders')
 
-    const items = this.cartService.getCartItems().slice(0)
-    await push(dataRef, Object.assign({ userData: data }, { items }))
+    await push(dataRef, Object.assign({ userData: data }, { items }, { costs }))
   }
 
   submitForm(): void {
     if (this.checkoutForm.valid ?? false) {
       this.dialogueRef.close(this.data)
       this.snackBar.open('Checkout success', 'Close')
-      void this.submitData(this.data)
+
+      const items = this.cartService.getCartItems().slice(0)
+      const costs = this.cartService.getCosts()
+      void this.submitData(this.data, items, costs)
+
       this.cartService.clearCart()
       this.cartService.triggerTableRefresh()
       return
