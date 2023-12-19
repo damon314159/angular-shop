@@ -27,7 +27,7 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "**/*.html",
+                "glob": "**/email-template.html",
                 "input": "src/app/checkout/checkout-form",
                 "output": "./assets/"
               }
@@ -87,7 +87,7 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "glob": "**/*.html",
+                "glob": "**/email.template.html",
                 "input": "src/app/checkout/checkout-form",
                 "output": "./assets/"
               }
