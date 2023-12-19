@@ -23,8 +23,15 @@
       <h1>WYWM Store</h1>
     </button>
     <span class="header-spacer"></span>
-    <button mat-icon-button (click)="onCartNav()" aria-label="Share button with share icon">
-      <mat-icon>local_mall</mat-icon>
+    <button mat-icon-button (click)="onCartNav()" aria-label="Shop button with shop icon">
+      <span class="cdk-visually-hidden"> Shop icon with overlaid badge showing the cart quantity </span>
+      <mat-icon
+        aria-hidden="false"
+        [matBadge]="getTotalQuantity()"
+        [matBadgeHidden]="getTotalQuantity() === 0"
+        matBadgeColor="accent"
+        >local_mall</mat-icon
+      >
     </button>
   </mat-toolbar>
 </header>
