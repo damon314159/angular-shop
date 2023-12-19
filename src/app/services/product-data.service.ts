@@ -11,7 +11,7 @@ import { type ApiResponse } from '../interfaces/api-response'
 export class ProductDataService {
   constructor(private readonly http: HttpClient) {}
 
-  private readonly apiURL = '../../assets/'
+  private readonly apiURL = 'assets/'
 
   getProducts(): Observable<CategorisedItem[]> {
     return this.http.get<ApiResponse<Item>>(this.apiURL + 'database/shopItems.json').pipe(
