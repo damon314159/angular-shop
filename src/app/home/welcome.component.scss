@@ -11,9 +11,18 @@ mat-grid-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 p,
 h2 {
   margin: 1rem;
+}
+
+button {
+  min-width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
