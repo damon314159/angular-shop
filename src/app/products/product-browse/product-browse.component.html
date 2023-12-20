@@ -12,8 +12,20 @@
     </mat-form-field>
   </mat-toolbar>
 
-  <mat-card *ngFor="let product of relevantProducts" class="product-card">
+  <mat-card
+    *ngFor="let product of relevantProducts"
+    class="product-card"
+    (mouseover)="hover[product.category + product.id] = true"
+    (mouseleave)="hover[product.category + product.id] = false"
+  >
     <mat-card-content class="product-content">
+      <div
+        class="overlay-details"
+        *ngIf="hover[product.category + product.id]"
+        aria-label="Larger picture view of product"
+      >
+        <app-product-details [product]="product"></app-product-details>
+      </div>
       <div class="thumbnail-container">
         <div mat-card-avatar class="product-image">
           <img mat-card-image src="{{ product.image }}" alt="{{ product.name }}" />

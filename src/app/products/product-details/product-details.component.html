@@ -1,1 +1,7 @@
-<p>product-details works!</p>
+<div class="tooltip-container">
+  <img [src]="product.image" alt="{{ product.name }}" />
+  <div class="info-container">
+    <h3>{{ product.name }}</h3>
+    <p>Price: {{ product.price | currency : 'USD' : 'symbol' : '1.2-2' }}</p>
+  </div>
+</div>

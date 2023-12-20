@@ -11,9 +11,12 @@ import { CartService } from '../../services/cart.service'
 import { ProductDataService } from '../../services/product-data.service'
 import { type CategorisedItem } from '../../interfaces/categorised-item'
 import { type Subscription } from 'rxjs'
+import { ProductDetailsComponent } from '../product-details/product-details.component'
 
 @Component({
   standalone: true,
+  templateUrl: './product-browse.component.html',
+  styleUrl: './product-browse.component.scss',
   imports: [
     CommonModule,
     MatCardModule,
@@ -23,10 +26,9 @@ import { type Subscription } from 'rxjs'
     MatFormFieldModule,
     CurrencyPipe,
     MatIconModule,
-    FormsModule
-  ],
-  templateUrl: './product-browse.component.html',
-  styleUrl: './product-browse.component.scss'
+    FormsModule,
+    ProductDetailsComponent
+  ]
 })
 export class ProductBrowseComponent {
   constructor(private readonly cartService: CartService, private readonly productDataService: ProductDataService) {}
@@ -35,6 +37,7 @@ export class ProductBrowseComponent {
   products!: CategorisedItem[]
   relevantProducts!: CategorisedItem[]
   errorMessage!: string
+  hover: Record<string, boolean> = {}
 
   #filter = ''
   get filter(): string {
@@ -51,6 +54,9 @@ export class ProductBrowseComponent {
       next: (products) => {
         this.products = products
         this.relevantProducts = this.products
+        Array.from(this.products.values()).forEach((product: CategorisedItem) => {
+          this.hover[product.category + product.id] = false
+        })
       },
       error: (err) => (this.errorMessage = err)
     })
