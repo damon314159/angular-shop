@@ -157,6 +157,7 @@ export class CheckoutFormComponent {
 
       this.cartService.clearCart()
       this.cartService.triggerTableRefresh()
+      this.snackBar.open('Order Successful!', 'Close')
       return
     }
     for (const control of Object.keys(this.checkoutForm.controls)) {

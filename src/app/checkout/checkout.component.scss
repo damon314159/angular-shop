@@ -20,26 +20,22 @@ tr.mat-mdc-footer-row th {
   justify-content: space-between;
 }
 
-mat-action-row {
-  width: min-content;
-  display: flex;
-  flex-direction: column;
-  button {
-    width: min-content;
-    padding: 0;
-  }
-  mat-icon {
-    margin: 0;
-  }
-}
-
 mat-toolbar-row {
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
+
   button {
     min-width: max-content;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  mat-icon {
+    margin: 0;
   }
 
   .spacer {
