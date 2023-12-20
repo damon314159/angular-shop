@@ -1,7 +1,10 @@
 :host {
   min-height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
 }
 .header-spacer {
   flex: 1 1 auto;
