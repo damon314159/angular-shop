@@ -21,6 +21,7 @@ tr.mat-mdc-footer-row th {
 }
 
 mat-toolbar-row {
+  // Place button panel vertically on narrow screens
   @media screen and (max-width: 768px) {
     flex-direction: column;
     height: auto;

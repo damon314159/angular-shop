@@ -1,3 +1,6 @@
+<!-- A series of html form inputs, thought each follows a similar pattern -->
+<!-- Each contains an input element with relevant aria attributes and validation -->
+<!-- Followed by an error container where some ngIf directives show the correct message -->
 <h1 mat-dialog-title>Checkout</h1>
 <div mat-dialog-content>
   <form #checkoutForm="ngForm">
@@ -287,6 +290,7 @@
   </form>
 </div>
 
+<!-- Small button panel to exit or submit the form -->
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancel</button>
   <button mat-button (click)="submitForm()" cdkFocusInitial type="submit">Submit</button>

@@ -1,6 +1,8 @@
 import { Directive } from '@angular/core'
 import { NG_VALIDATORS, AbstractControl, Validator, ValidationErrors, ValidatorFn } from '@angular/forms'
 
+// Custom validation example using a directive. This example is only a regex...
+// but it allows a custom error object to allow for specific user feedback
 function phoneNumberValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid = /^\+?[0-9]+(?:[ -]*[0-9]){10,}$/.test(control.value ?? '')
@@ -20,11 +22,14 @@ function phoneNumberValidator(): ValidatorFn {
   ]
 })
 export class PhoneValidatorDirective implements Validator {
+  // A validate method that will call the custom validation function on the control
   public validate(control: AbstractControl): ValidationErrors | null {
     return phoneNumberValidator()(control)
   }
 }
 
+// Custom validation example using a directive. This example is only a regex...
+// but it allows a custom error object to allow for specific user feedback
 function emailValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid =
@@ -47,11 +52,14 @@ function emailValidator(): ValidatorFn {
   ]
 })
 export class EmailValidatorDirective implements Validator {
+  // A validate method that will call the custom validation function on the control
   public validate(control: AbstractControl): ValidationErrors | null {
     return emailValidator()(control)
   }
 }
 
+// Custom validation example using a directive. This example is only a regex...
+// but it allows a custom error object to allow for specific user feedback
 function postcodeValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid = /^[A-Za-z0-9\s-]{3,10}$/.test(control.value ?? '')
@@ -71,11 +79,14 @@ function postcodeValidator(): ValidatorFn {
   ]
 })
 export class PostcodeValidatorDirective implements Validator {
+  // A validate method that will call the custom validation function on the control
   public validate(control: AbstractControl): ValidationErrors | null {
     return postcodeValidator()(control)
   }
 }
 
+// Custom validation example using a directive. This example is only a regex...
+// but it allows a custom error object to allow for specific user feedback
 function expiryValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(control.value ?? '')
@@ -95,6 +106,7 @@ function expiryValidator(): ValidatorFn {
   ]
 })
 export class ExpiryValidatorDirective implements Validator {
+  // A validate method that will call the custom validation function on the control
   public validate(control: AbstractControl): ValidationErrors | null {
     return expiryValidator()(control)
   }

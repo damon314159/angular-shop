@@ -1,14 +1,21 @@
+// Applies to entire component's host element
 :host {
   min-height: 100%;
-  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  // Constrain app component width on very wide displays, then
+  // visually separate app component from body's slightly darker background
+  max-width: 1440px;
   background-color: #ffffff;
 }
+
+// Separate left and right toolbar sections
 .header-spacer {
   flex: 1 1 auto;
 }
+
+// Place toolbar above of the router-outlet
 main {
   display: flex;
   flex-direction: column;

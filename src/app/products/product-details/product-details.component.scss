@@ -1,6 +1,8 @@
 :host {
+  // Position the component within its parent (the product list item), overlaid on top
   position: absolute;
   z-index: 100;
+  // Keep it at a sensible width
   width: 400px;
   max-width: 50%;
 }
@@ -16,6 +18,7 @@
 }
 
 img {
+  // Large view of the image, neatly centred
   max-width: 90%;
   margin: 1rem auto;
 }

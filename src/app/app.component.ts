@@ -24,12 +24,15 @@ import { CartService } from './services/cart.service'
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  // Dependency injection in constructor
   constructor(private readonly router: Router, private readonly cartService: CartService) {}
 
+  // Method used to update quantity badge overlay in nav bar
   getTotalQuantity(): number {
     return this.cartService.getTotalQuantity()
   }
 
+  // Router commands from navbar links
   async onHomeNav(): Promise<void> {
     await this.router.navigate(['/welcome'])
   }

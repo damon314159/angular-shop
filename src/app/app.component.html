@@ -4,6 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <nav>
+      <!-- Drop down menu for navigation application -->
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="onHomeNav()" aria-label="Home navigation button">
           <mat-icon>home</mat-icon>
@@ -19,10 +20,12 @@
         </button>
       </mat-menu>
     </nav>
+    <!-- Page header text is also a link to the home component -->
     <button mat-button (click)="onHomeNav()" aria-label="WYWM Store logo and home button">
       <h1>WYWM Store</h1>
     </button>
     <span class="header-spacer"></span>
+    <!-- Small shopping cart icon with an overlaid badge displaying the current quantity, if any -->
     <button mat-icon-button (click)="onCartNav()" aria-label="Shop button with shop icon">
       <span class="cdk-visually-hidden"> Shop icon with overlaid badge showing the cart quantity </span>
       <mat-icon
@@ -37,5 +40,6 @@
 </header>
 
 <main>
+  <!-- The result of the routing navigation will be displayed here -->
   <router-outlet></router-outlet>
 </main>

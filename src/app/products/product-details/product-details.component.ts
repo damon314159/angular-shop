@@ -10,5 +10,6 @@ import { type Item } from '../../interfaces/item'
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent {
+  // The detailed view of the product takes an input of the product it will display
   @Input() product!: Item
 }

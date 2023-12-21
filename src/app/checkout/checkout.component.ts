@@ -12,6 +12,7 @@ import { type Transaction } from '../interfaces/transaction'
 import { MatDialog } from '@angular/material/dialog'
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { type DialogueData } from '../interfaces/dialogue-data'
 
 @Component({
   selector: 'app-checkout',
@@ -29,6 +30,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
+  // Dependency injection in constructor
   constructor(
     private readonly cartService: CartService,
     private readonly router: Router,
@@ -36,18 +38,24 @@ export class CheckoutComponent {
     private readonly snackBar: MatSnackBar
   ) {}
 
+  // Initialise the table columns
   displayedColumns: string[] = ['item', 'quantity', 'price']
+  // Allow access to the table child element
   @ViewChild(MatTable) table!: MatTable<any>
 
+  // Initialise a local copy of the transactions...
   transactions: Transaction[] = []
 
+  // Which are then retrieved on initialisation of the component from cart service
   ngOnInit(): void {
     this.transactions = this.cartService.getCartItems()
     this.cartService.tableRefresh.subscribe(() => {
+      // Each time a table refresh update is emitted, rerender the table contents
       this.table.renderRows()
     })
   }
 
+  // A series of methods that call the corresponding cart service methods
   getTotalPrice(): number {
     return this.cartService.getTotalPrice()
   }
@@ -68,6 +76,7 @@ export class CheckoutComponent {
     return this.cartService.getTotal()
   }
 
+  // Add quantity and then rerender the table in case a row needs adding
   plusQuantity(transaction: Transaction): void {
     const item = this.transactions.find((t) => t === transaction)!
     this.cartService.addToCart(item)
@@ -75,6 +84,7 @@ export class CheckoutComponent {
     this.table.renderRows()
   }
 
+  // Remove quantity and then rerender the table in case a row needs removing
   minusQuantity(transaction: Transaction): void {
     const item = this.transactions.find((t) => t === transaction)!
     this.cartService.removeFromCart(item)
@@ -82,37 +92,43 @@ export class CheckoutComponent {
     this.table.renderRows()
   }
 
+  // Clear cart and rerender to remove all product rows
   clearCart(): void {
     this.cartService.clearCart()
     this.transactions = this.cartService.getCartItems()
     this.table.renderRows()
   }
 
+  // Router command for the back to shop button
   async onBackNav(): Promise<void> {
     await this.router.navigate(['/catalogue'])
   }
 
+  // When the checkout button is pressed
   checkout(): void {
+    // If the cart is non empty
     if (this.getTotal() > 0) {
-      this.dialogue.open(CheckoutFormComponent, {
-        data: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phoneNumber: '',
-          address1: '',
-          address2: '',
-          city: '',
-          county: '',
-          postcode: '',
-          country: '',
-          cardNumber: '',
-          expiry: '',
-          cvc: ''
-        }
-      })
+      // Initialise a data object
+      const data: DialogueData = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        address1: '',
+        address2: '',
+        city: '',
+        county: '',
+        postcode: '',
+        country: '',
+        cardNumber: '',
+        expiry: '',
+        cvc: ''
+      }
+      // Open the form dialogue box with that object to be populated
+      this.dialogue.open(CheckoutFormComponent, { data })
       return
     }
+    // If the cart was empty, show a message instead
     this.snackBar.open('Add items to cart first!', 'Close')
   }
 }

@@ -1,3 +1,4 @@
+// All the data that needs to be returned from the checkout form
 export interface DialogueData {
   firstName: string
   lastName: string

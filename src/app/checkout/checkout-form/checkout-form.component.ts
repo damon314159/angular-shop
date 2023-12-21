@@ -53,6 +53,7 @@ import { Observable } from 'rxjs'
   styleUrl: './checkout-form.component.scss'
 })
 export class CheckoutFormComponent {
+  // Dependency injection in constructor
   constructor(
     public dialogueRef: MatDialogRef<CheckoutFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogueData,
@@ -61,14 +62,18 @@ export class CheckoutFormComponent {
     private readonly http: HttpClient
   ) {}
 
+  // View the form element that exists in the dialogue box
   @ViewChild('checkoutForm', { static: true })
   checkoutForm!: NgForm
 
+  // Close the form on the cancel button
   onCancelClick(): void {
     this.dialogueRef.close()
   }
 
+  // Method to submit the data to the database, taking the user info data, the items bought, and the costs
   async submitData(data: DialogueData, items: Transaction[], costs: Record<string, number>): Promise<void> {
+    // Initialise the config item to use with the firebase real time db
     const firebaseConfig = {
       apiKey: 'DCE4D219D6F30FB6A15B93C5DA92D80CD9877995A7D57CD87048C940ECE40475782B863BAED5D84C6A7CB44E6D9110A0',
       authDomain: 'wywm-shop.firebaseapp.com',
@@ -78,22 +83,29 @@ export class CheckoutFormComponent {
       messagingSenderId: '1042038869660',
       appId: '1:1042038869660:web:827615f46033e5459c6759'
     }
+    // Get a reference to the data node 'orders'
     const app: FirebaseApp = initializeApp(firebaseConfig)
     const db = getDatabase(app)
     const dataRef = ref(db, 'orders')
 
+    // Push a single object containing userData, items, costs to the db
     await push(dataRef, Object.assign({ userData: data }, { items }, { costs }))
   }
 
+  // Method to send the email via an email API
   async sendEmail(data: DialogueData, items: Transaction[], costs: Record<string, number>): Promise<void> {
+    // Set key and URL. Ideally the key would be stored in environment variables rather than in source
     const apiKey = 'BA765A87B76418FD6EA8CEC57D7C92A341F55FB07E153DA793350975F777DEFF6DB2C11CC8D1547F2889C542A91B2BBF'
     const apiUrl = 'https://api.elasticemail.com/v2/email/send?'
+    // Initialise a format object for currency formatting in the email
     const currencyFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
+    // Fetch the email template html as text via http request
     const getEmailTemplate = (): Observable<string> => {
       return this.http.get('assets/email-template.html', { responseType: 'text' })
     }
     getEmailTemplate().subscribe((emailTemplateHTML) => {
+      // When it is retrieved, replace all the blanks with the appropriate info
       const emailBodyHTML = emailTemplateHTML
         .replace('[CustomerName]', `${data.firstName} ${data.lastName}`)
         .replace(
@@ -118,6 +130,7 @@ export class CheckoutFormComponent {
         .replace('[ShippingCountry]', data.country)
         .replace('[CardLast4]', data.cardNumber.slice(-4))
 
+      // After it has been populated, create the email object as per API docs
       const emailData: Record<string, string | boolean> = {
         apikey: apiKey,
         from: 'wywmshopdb@gmail.com',
@@ -126,6 +139,7 @@ export class CheckoutFormComponent {
         bodyHtml: emailBodyHTML,
         isTransactional: true
       }
+      // Attempt to send the email, with a try... catch block for simple error handling
       const sendEmail = async (data: Record<string, string | boolean>): Promise<void> => {
         try {
           await fetch(apiUrl, {
@@ -145,21 +159,28 @@ export class CheckoutFormComponent {
     })
   }
 
+  // When the form is submitted
   submitForm(): void {
+    // Check for validity of the form
     if (this.checkoutForm.valid ?? false) {
+      // If it was valid, close it with its data passed back
       this.dialogueRef.close(this.data)
+      // Small success message
       this.snackBar.open('Checkout success', 'Close')
 
+      // Retrieve cost and items info, then call the db and email methods
       const items = this.cartService.getCartItems().slice(0)
       const costs = this.cartService.getCosts()
       void this.submitData(this.data, items, costs)
       void this.sendEmail(this.data, items, costs)
 
+      // Reset the cart and table, with a new message for successful completion
       this.cartService.clearCart()
       this.cartService.triggerTableRefresh()
       this.snackBar.open('Order Successful!', 'Close')
       return
     }
+    // If it was invalid, mark all fields as touched to highlight empty required fields
     for (const control of Object.keys(this.checkoutForm.controls)) {
       this.checkoutForm.controls[control].markAsTouched()
     }

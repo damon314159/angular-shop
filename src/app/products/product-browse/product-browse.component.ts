@@ -31,41 +31,51 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
   ]
 })
 export class ProductBrowseComponent {
+  // Dependency injection in constructor
   constructor(private readonly cartService: CartService, private readonly productDataService: ProductDataService) {}
 
+  // Keep track of all the items, the filtered items, and which are hovered over
   sub!: Subscription
   products!: CategorisedItem[]
   relevantProducts!: CategorisedItem[]
   errorMessage!: string
   hover: Record<string, boolean> = {}
 
+  // Initialise a filtering string, with a getter...
   #filter = ''
   get filter(): string {
     return this.#filter
   }
 
+  // And a setter that will update the relevant products on changes to the filter string
   set filter(arg: string) {
     this.#filter = arg
     this.relevantProducts = this.products.filter((product) => product.name.toLowerCase().includes(arg.toLowerCase()))
   }
 
   ngOnInit(): void {
+    // When the component is initialised, subscribe to the product data service
     this.sub = this.productDataService.getProducts().subscribe({
       next: (products) => {
+        // Any time a new products array is published, update the component
         this.products = products
         this.relevantProducts = this.products
         Array.from(this.products.values()).forEach((product: CategorisedItem) => {
+          // Keep track of which elements are being hovered over, initially none
           this.hover[product.category + product.id] = false
         })
       },
+      // Log any errors caused by the http request
       error: (err) => (this.errorMessage = err)
     })
   }
 
+  // Make sure to unsubscribe from the data service when the component is destroyed
   ngOnDestroy(): void {
     this.sub.unsubscribe()
   }
 
+  // Call the cart service method when an add to cart button is pressed
   onAddToCart(product: CategorisedItem): void {
     this.cartService.addToCart(product)
   }
