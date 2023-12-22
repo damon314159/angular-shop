@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- Self contained email template with styling included -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Confirmation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        background-color: #ffffff;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Order Confirmation</h2>
+      <p>Dear [CustomerName],</p>
+      <p>Thank you for shopping with us! Your order details are as follows:</p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          [ProductDetails]
+        </tbody>
+      </table>
+
+      <p>Total with Tax/Shipping: [TotalAmount]</p>
+      <br />
+
+      <p>Shipping Address:</p>
+      <address>
+        [ShippingName]<br />
+        [ShippingAddressLine1-2]<br />
+        [ShippingCity], [ShippingCounty] [ShippingPostcode]<br />
+        [ShippingCountry]
+      </address>
+      <br />
+
+      <p class="mt-4">Payment details:</p>
+      <p>Card number: **** **** **** [CardLast4]</p>
+      <br />
+
+      <p>Thank you for choosing us. We appreciate your business!</p>
+      <p>Best wishes,<br />WYWM Shop</p>
+    </div>
+  </body>
+</html>
