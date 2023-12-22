@@ -20,6 +20,19 @@ tr.mat-mdc-footer-row th {
   justify-content: space-between;
 }
 
+mat-action-row {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  button {
+    width: min-content;
+    padding: 0;
+  }
+  mat-icon {
+    margin: 0;
+  }
+}
+
 mat-toolbar-row {
   // Place button panel vertically on narrow screens
   @media screen and (max-width: 768px) {
