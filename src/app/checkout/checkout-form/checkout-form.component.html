@@ -68,7 +68,7 @@
       />
       <mat-error *ngIf="email.invalid && (email.dirty || email.touched)" id="emailError">
         <span *ngIf="email.errors?.['required']">Email is required.</span>
-        <span *ngIf="!email.errors?.['required'] && email.errors?.['invalidEmail']">Invalid Phone Number format.</span>
+        <span *ngIf="!email.errors?.['required'] && email.errors?.['invalidEmail']">Invalid Email format.</span>
       </mat-error>
     </mat-form-field>
 
